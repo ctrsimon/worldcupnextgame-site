@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./static.css";
+import "./cinematic.css";
 
 export const metadata: Metadata = {
   title: "World Cup Next Game: Teams, Kickoff Time and Countdown",
