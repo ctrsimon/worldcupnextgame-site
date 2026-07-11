@@ -1,0 +1,12 @@
+import type { Match } from "./types";
+
+const updated = "2026-07-11T16:00:00Z";
+
+export const mockMatches: Match[] = [
+  { id: "norway-england", slug: "norway-vs-england", tournamentId: "wc-2026", tournamentName: "World Cup 2026", stage: "Quarterfinal", kickoffUtc: "2026-07-12T20:00:00Z", status: "scheduled", homeTeam: { name: "Norway", code: "NOR", flag: "NO" }, awayTeam: { name: "England", code: "ENG", flag: "GB-ENG" }, venue: { name: "MetLife Stadium", city: "East Rutherford" }, providerUpdatedAt: updated },
+  { id: "brazil-japan", slug: "brazil-vs-japan", tournamentId: "wc-2026", tournamentName: "World Cup 2026", stage: "Quarterfinal", kickoffUtc: "2026-07-13T00:00:00Z", status: "scheduled", homeTeam: { name: "Brazil", code: "BRA", flag: "BR" }, awayTeam: { name: "Japan", code: "JPN", flag: "JP" }, venue: { name: "Lincoln Financial Field", city: "Philadelphia" }, providerUpdatedAt: updated },
+  { id: "france-mexico", slug: "france-vs-mexico", tournamentId: "wc-2026", tournamentName: "World Cup 2026", stage: "Quarterfinal", kickoffUtc: "2026-07-13T20:00:00Z", status: "scheduled", homeTeam: { name: "France", code: "FRA", flag: "FR" }, awayTeam: { name: "Mexico", code: "MEX", flag: "MX" }, venue: { name: "Hard Rock Stadium", city: "Miami Gardens" }, providerUpdatedAt: updated },
+  { id: "spain-argentina", slug: "spain-vs-argentina", tournamentId: "wc-2026", tournamentName: "World Cup 2026", stage: "Quarterfinal", kickoffUtc: "2026-07-14T00:00:00Z", status: "scheduled", homeTeam: { name: "Spain", code: "ESP", flag: "ES" }, awayTeam: { name: "Argentina", code: "ARG", flag: "AR" }, venue: { name: "SoFi Stadium", city: "Inglewood" }, providerUpdatedAt: updated },
+  { id: "semi-final-1", slug: "semi-final-one", tournamentId: "wc-2026", tournamentName: "World Cup 2026", stage: "Semifinal", kickoffUtc: "2026-07-15T20:00:00Z", status: "scheduled", homeTeam: { name: "Winner of QF 1", code: "QF1", flag: "" }, awayTeam: { name: "Winner of QF 2", code: "QF2", flag: "" }, venue: { name: "AT&T Stadium", city: "Arlington" }, providerUpdatedAt: updated },
+  { id: "semi-final-2", slug: "semi-final-two", tournamentId: "wc-2026", tournamentName: "World Cup 2026", stage: "Semifinal", kickoffUtc: "2026-07-16T20:00:00Z", status: "scheduled", homeTeam: { name: "Winner of QF 3", code: "QF3", flag: "" }, awayTeam: { name: "Winner of QF 4", code: "QF4", flag: "" }, venue: { name: "Mercedes-Benz Stadium", city: "Atlanta" }, providerUpdatedAt: updated },
+];

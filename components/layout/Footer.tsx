@@ -1,0 +1,2 @@
+import Link from "next/link";
+export function Footer() { return <footer><div><strong>World Cup Next Game</strong><p>The next World Cup match, in your time, instantly.</p></div><nav><Link href="/about">About</Link><Link href="/data-sources">Data sources</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link><Link href="/contact">Contact</Link></nav><p className="disclaimer">Independent fan-made utility. Not affiliated with or endorsed by FIFA or any national football association.</p></footer>; }
