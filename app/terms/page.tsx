@@ -1,0 +1,2 @@
+import { StaticPage } from "@/components/layout/StaticPage";
+export default function TermsPage() { return <StaticPage eyebrow="Legal" title="Terms of use"><p>Match information is provided for convenience and may change. Confirm critical kickoff, venue, broadcast, and travel details with official tournament or broadcaster sources.</p><p>World Cup Next Game is an independent fan-made utility and is not affiliated with or endorsed by FIFA or any national football association.</p></StaticPage>; }

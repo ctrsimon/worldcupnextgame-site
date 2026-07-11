@@ -1,0 +1,2 @@
+import { StaticPage } from "@/components/layout/StaticPage";
+export default function AboutPage() { return <StaticPage eyebrow="About" title="The next match, clearly."><p>World Cup Next Game is an independent fan-made utility for quickly finding the next World Cup fixture in your time zone.</p><p>It is not affiliated with or endorsed by FIFA, any national football association, or a broadcaster. We use original visuals and plain match information to keep the experience fast and useful.</p></StaticPage>; }

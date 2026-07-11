@@ -1,0 +1,2 @@
+import { StaticPage } from "@/components/layout/StaticPage";
+export default function PrivacyPage() { return <StaticPage eyebrow="Legal" title="Privacy"><p>This early prototype stores an optional timezone preference only in your browser. It does not require an account or collect personal information.</p><p>If analytics or advertising are added, this policy will be updated with clear consent and data-use information before those services are enabled.</p></StaticPage>; }

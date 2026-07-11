@@ -1,0 +1,2 @@
+import { StaticPage } from "@/components/layout/StaticPage";
+export default function DataSourcesPage() { return <StaticPage eyebrow="Transparency" title="Match data sources"><p>This prototype uses checked-in sample data behind a provider-ready match model. Before launch, fixture and live-status data will come from a licensed provider with verified commercial display rights.</p><p>We will show a refresh timestamp and keep the last valid schedule available if a provider is temporarily unavailable.</p></StaticPage>; }
