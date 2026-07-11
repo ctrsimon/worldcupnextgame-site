@@ -1,0 +1,3 @@
+import { z } from "zod";
+const environment = z.object({ MATCH_API_BASE_URL: z.string().url().optional(), MATCH_API_KEY: z.string().min(1).optional(), MATCH_API_TOURNAMENT_ID: z.string().min(1).optional(), REVALIDATION_SECRET: z.string().min(16).optional(), NEXT_PUBLIC_SITE_URL: z.string().url().optional() });
+export const env = environment.parse({ MATCH_API_BASE_URL: process.env.MATCH_API_BASE_URL, MATCH_API_KEY: process.env.MATCH_API_KEY, MATCH_API_TOURNAMENT_ID: process.env.MATCH_API_TOURNAMENT_ID, REVALIDATION_SECRET: process.env.REVALIDATION_SECRET, NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL });
