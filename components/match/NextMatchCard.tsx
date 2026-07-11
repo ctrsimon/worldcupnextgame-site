@@ -1,14 +1,16 @@
 import Link from "next/link";
 import type { Match } from "@/lib/matches/types";
+import { getCountdown } from "@/lib/time/countdown";
 import { MatchCountdown } from "./MatchCountdown";
 import { MatchStatusBadge } from "./MatchStatusBadge";
 import { LocalKickoffTime } from "@/components/timezone/LocalKickoffTime";
 
 export function NextMatchCard({ match }: { match: Match }) {
+  const initialCountdown = getCountdown(match.kickoffUtc);
   return <article className="next-card" id="next-match">
     <div className="card-top"><p>{match.tournamentName} · {match.stage}</p><MatchStatusBadge status={match.status} /></div>
     <div className="teams"><Team team={match.homeTeam} /><span className="versus">VS</span><Team team={match.awayTeam} /></div>
-    <MatchCountdown kickoffUtc={match.kickoffUtc} />
+    <MatchCountdown kickoffUtc={match.kickoffUtc} initialCountdown={initialCountdown} />
     <LocalKickoffTime kickoffUtc={match.kickoffUtc} />
     {match.venue && <p className="venue">{match.venue.name} <span>·</span> {match.venue.city}</p>}
     <div className="card-actions"><Link href={`/match/${match.slug}`}>Match details</Link><a href={`/api/matches/${match.slug}/calendar`}>Add to calendar</a></div>

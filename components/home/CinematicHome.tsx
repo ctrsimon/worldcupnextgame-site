@@ -3,13 +3,15 @@
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Match } from "@/lib/matches/types";
+import { getCountdown } from "@/lib/time/countdown";
 import { MatchCountdown } from "@/components/match/MatchCountdown";
 import { LocalKickoffTime } from "@/components/timezone/LocalKickoffTime";
+import { TimezoneSelector } from "@/components/timezone/TimezoneSelector";
 import { SoccerBallSvg } from "@/components/hero/SoccerBallSvg";
 
-type Props = { match: Match; upcoming: Match[] };
+type Props = { match: Match; upcoming: Match[]; initialCountdown: ReturnType<typeof getCountdown> };
 
-export function CinematicHome({ match, upcoming }: Props) {
+export function CinematicHome({ match, upcoming, initialCountdown }: Props) {
   const [progress, setProgress] = useState(0);
   const [scheduleOpen, setScheduleOpen] = useState(false);
   const progressRef = useRef(0);
@@ -97,8 +99,11 @@ export function CinematicHome({ match, upcoming }: Props) {
         <b>VS</b>
         <div><span>{match.awayTeam.code}</span><h2>{match.awayTeam.name}</h2></div>
       </div>
-      <MatchCountdown kickoffUtc={match.kickoffUtc} />
+      <MatchCountdown kickoffUtc={match.kickoffUtc} initialCountdown={initialCountdown} />
       <LocalKickoffTime kickoffUtc={match.kickoffUtc} />
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "12px" }}>
+        <TimezoneSelector />
+      </div>
       <p className="cinema-venue">{match.venue?.name} <span>—</span> {match.venue?.city}</p>
       <div className="cinema-actions">
         <Link href={`/match/${match.slug}`}>Match details <span>↗</span></Link>

@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { getCountdown } from "@/lib/time/countdown";
 
-export function MatchCountdown({ kickoffUtc }: { kickoffUtc: string }) {
-  const [countdown, setCountdown] = useState(() => getCountdown(kickoffUtc));
+export function MatchCountdown({ kickoffUtc, initialCountdown }: { kickoffUtc: string; initialCountdown: ReturnType<typeof getCountdown> }) {
+  const [countdown, setCountdown] = useState(initialCountdown);
   useEffect(() => {
     const timer = window.setInterval(() => setCountdown(getCountdown(kickoffUtc)), 1000);
     return () => window.clearInterval(timer);
