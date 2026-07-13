@@ -64,6 +64,9 @@ export async function getApiFootballFixtures({ apiKey, leagueId, season }: { api
   const response = await fetch(url, { headers: { "x-apisports-key": apiKey }, next: { revalidate: 3600 } });
   if (!response.ok) throw new Error(`API-Football fixtures request failed (${response.status})`);
   const body = await response.json() as { response?: ApiFootballFixture[]; errors?: Record<string, string> };
-  if (body.errors && Object.keys(body.errors).length) throw new Error("API-Football returned an error");
+  if (body.errors && Object.keys(body.errors).length) {
+    const reason = Object.values(body.errors).filter(Boolean).join("; ");
+    throw new Error(`API-Football returned an error${reason ? `: ${reason}` : ""}`);
+  }
   return (body.response || []).map(apiFootballFixtureToMatch).filter((match): match is Match => match !== null);
 }
