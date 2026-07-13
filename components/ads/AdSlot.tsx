@@ -1,6 +1,6 @@
 import { AdSenseSlot } from "./AdSenseSlot";
 
-const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || "ca-pub-3374016401769525";
+const adsenseClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
 
 const slotIds = {
   schedule: process.env.NEXT_PUBLIC_ADSENSE_SLOT_SCHEDULE || process.env.NEXT_PUBLIC_ADSENSE_SLOT_ID,
@@ -18,7 +18,7 @@ type AdSlotProps = {
 export function AdSlot({ placement, className = "", style }: AdSlotProps) {
   const slotId = slotIds[placement];
 
-  if (!slotId) {
+  if (!adsenseClientId || !slotId) {
     if (process.env.NODE_ENV !== "production") {
       return (
         <aside className={`ad-slot ${className}`.trim()} aria-label="Advertisement">
