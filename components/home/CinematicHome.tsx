@@ -8,10 +8,11 @@ import { MatchCountdown } from "@/components/match/MatchCountdown";
 import { LocalKickoffTime } from "@/components/timezone/LocalKickoffTime";
 import { TimezoneSelector } from "@/components/timezone/TimezoneSelector";
 import { SoccerBallSvg } from "@/components/hero/SoccerBallSvg";
+import { AdSlot } from "@/components/ads/AdSlot";
 
-type Props = { match: Match; upcoming: Match[]; initialCountdown: ReturnType<typeof getCountdown> };
+type Props = { match: Match; upcoming: Match[]; initialCountdown: ReturnType<typeof getCountdown>; source: string; updatedAt: string };
 
-export function CinematicHome({ match, upcoming, initialCountdown }: Props) {
+export function CinematicHome({ match, upcoming, initialCountdown, source, updatedAt }: Props) {
   const [progress, setProgress] = useState(0);
   const [scheduleOpen, setScheduleOpen] = useState(false);
   const progressRef = useRef(0);
@@ -73,7 +74,7 @@ export function CinematicHome({ match, upcoming, initialCountdown }: Props) {
     <div className="frame-corners" aria-hidden="true"><i /><i /><i /><i /></div>
     <div className="telemetry telemetry-left" aria-hidden="true">
       <span>SYS / MATCH SEEK</span><strong>{String(Math.round(progress * 100)).padStart(3, "0")}%</strong>
-      <span>UTC LOCKED</span><span>DATA VERIFIED</span>
+      <span>UTC LOCKED</span><span>{source === "football-data" ? "LIVE DATA FEED" : "SCHEDULE FEED"}</span>
     </div>
     <div className="telemetry telemetry-right" aria-hidden="true">
       <span>40.8136° N</span><span>74.0745° W</span><span>STADIUM FEED / 01</span>
@@ -109,6 +110,7 @@ export function CinematicHome({ match, upcoming, initialCountdown }: Props) {
         <Link href={`/match/${match.slug}`}>Match details <span>↗</span></Link>
         <a href={`/api/matches/${match.slug}/calendar`}>Add to calendar <span>＋</span></a>
       </div>
+      <p className="cinema-data-note">Updated {new Intl.DateTimeFormat("en", { hour: "numeric", minute: "2-digit", timeZone: "UTC", timeZoneName: "short" }).format(new Date(updatedAt))} · {source === "football-data" ? "football-data.org" : "fixture feed"}</p>
     </section>
 
     <button className="skip-cinema" onClick={() => { progressRef.current = 1; setProgress(1); }} aria-label="Reveal next match">
@@ -120,9 +122,11 @@ export function CinematicHome({ match, upcoming, initialCountdown }: Props) {
     <aside className={`schedule-drawer ${scheduleOpen ? "is-open" : ""}`} aria-hidden={!scheduleOpen}>
       <div className="drawer-top"><p><span>Queue</span> Upcoming fixtures</p><button onClick={() => setScheduleOpen(false)} aria-label="Close upcoming fixtures">Close ×</button></div>
       {upcoming.slice(0, 5).map((item, index) => <Link href={`/match/${item.slug}`} key={item.id} className="drawer-match"><span>0{index + 1}</span><div><strong>{item.homeTeam.name} <i>vs</i> {item.awayTeam.name}</strong><small>{item.stage} · {item.venue?.city}</small></div><b>↗</b></Link>)}
+      <AdSlot placement="schedule" className="drawer-ad" />
       <Link href="/schedule" className="drawer-all">View the full schedule <span>→</span></Link>
     </aside>
     {scheduleOpen && <button className="drawer-scrim" onClick={() => setScheduleOpen(false)} aria-label="Close upcoming fixtures" />}
+    <nav className="cinema-explore" aria-label="Explore World Cup information"><Link href="/today">Today</Link><Link href="/tomorrow">Tomorrow</Link><Link href="/schedule">All fixtures</Link><Link href="/data-sources">Data source</Link></nav>
   </main>;
 }
 

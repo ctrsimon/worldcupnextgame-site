@@ -4,11 +4,13 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { NextMatchCard } from "@/components/match/NextMatchCard";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { mockMatches } from "@/lib/matches/mock-data";
-export function generateStaticParams() { return mockMatches.map((match) => ({ slug: match.slug })); }
+import { getWorldCupMatchFeed } from "@/lib/matches/getWorldCupMatches";
+
+export const revalidate = 3600;
 export default async function MatchPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const match = mockMatches.find((item) => item.slug === slug);
+  const { matches } = await getWorldCupMatchFeed();
+  const match = matches.find((item) => item.slug === slug);
 
   if (!match) notFound();
 

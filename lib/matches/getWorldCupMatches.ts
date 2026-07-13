@@ -1,8 +1,8 @@
-import { mockMatches } from "./mock-data";
 import { getApiFootballFixtures } from "./api-football";
 import { getFootballDataWorldCupMatches } from "./football-data";
+import type { Match } from "./types";
 
-export type MatchFeed = { matches: typeof mockMatches; source: "football-data" | "api-football" | "fallback"; updatedAt: string };
+export type MatchFeed = { matches: Match[]; source: "football-data" | "api-football" | "unavailable"; updatedAt: string };
 
 /** Uses a live, cached provider feed when configured; fixtures remain available during provider failures. */
 export async function getWorldCupMatchFeed(): Promise<MatchFeed> {
@@ -17,7 +17,7 @@ export async function getWorldCupMatchFeed(): Promise<MatchFeed> {
   }
 
   const apiKey = process.env.API_FOOTBALL_KEY;
-  if (!apiKey) return { matches: mockMatches, source: "fallback", updatedAt: mockMatches[0]?.providerUpdatedAt || new Date(0).toISOString() };
+  if (!apiKey) return { matches: [], source: "unavailable", updatedAt: new Date().toISOString() };
 
   try {
     const matches = await getApiFootballFixtures({
@@ -30,5 +30,5 @@ export async function getWorldCupMatchFeed(): Promise<MatchFeed> {
     console.error("Unable to load World Cup fixtures from API-Football", error);
   }
 
-  return { matches: mockMatches, source: "fallback", updatedAt: mockMatches[0]?.providerUpdatedAt || new Date(0).toISOString() };
+  return { matches: [], source: "unavailable", updatedAt: new Date().toISOString() };
 }

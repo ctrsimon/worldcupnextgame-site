@@ -6,10 +6,10 @@ import { getCountdown } from "@/lib/time/countdown";
 export const revalidate = 3600;
 
 export default async function Home() {
-  const { matches } = await getWorldCupMatchFeed();
+  const { matches, source, updatedAt } = await getWorldCupMatchFeed();
   const selection = selectNextMatch(matches);
   const primary = selection.kind === "complete" ? undefined : selection.matches[0];
   if (!primary) return <main>Tournament schedule will be announced soon.</main>;
-  const upcoming = matches.filter((match) => match.id !== primary.id);
-  return <CinematicHome match={primary} upcoming={upcoming} initialCountdown={getCountdown(primary.kickoffUtc)} />;
+  const upcoming = matches.filter((match) => match.id !== primary.id && ["scheduled", "delayed", "postponed"].includes(match.status));
+  return <CinematicHome match={primary} upcoming={upcoming} initialCountdown={getCountdown(primary.kickoffUtc)} source={source} updatedAt={updatedAt} />;
 }

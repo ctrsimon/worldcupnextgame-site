@@ -14,9 +14,10 @@ export default async function SchedulePage() {
       <main className="static-page schedule-page">
         <p className="eyebrow">World Cup 2026</p>
         <h1>Full schedule</h1>
-        <p className="intro">All upcoming fixtures in one place. Times are displayed in UTC until you choose your local timezone on the homepage.</p>
+        <p className="intro">Every provider-confirmed World Cup fixture in one place. Times are shown in UTC; open the next-match view to see your local kickoff time and add it to your calendar.</p>
+        <div className="schedule-tools"><span>{matches.length} fixtures available</span><a href="/today">Matches today</a><a href="/tomorrow">Matches tomorrow</a></div>
         <AdSlot placement="schedule" className="inline-ad" />
-        <UpcomingMatches matches={matches} />
+        <UpcomingMatches matches={matches} showAd />
       </main>
       <Footer />
     </>

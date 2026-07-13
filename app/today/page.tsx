@@ -1,4 +1,5 @@
 import { StaticPage } from "@/components/layout/StaticPage";
-import { mockMatches } from "@/lib/matches/mock-data";
+import { getWorldCupMatchFeed } from "@/lib/matches/getWorldCupMatches";
 import { formatKickoff } from "@/lib/time/format";
-export default function TodayPage() { const matches = mockMatches.filter((match) => new Date(match.kickoffUtc).toISOString().slice(0, 10) === "2026-07-11"); return <StaticPage eyebrow="Today" title="World Cup matches today">{matches.length ? <ul>{matches.map((match) => <li key={match.id}>{match.homeTeam.name} vs {match.awayTeam.name} — {formatKickoff(match.kickoffUtc)}</li>)}</ul> : <p>No World Cup matches are scheduled in this sample schedule today. The next fixture is shown on the homepage.</p>}</StaticPage>; }
+export const revalidate = 3600;
+export default async function TodayPage() { const { matches: allMatches } = await getWorldCupMatchFeed(); const today = new Date().toISOString().slice(0, 10); const matches = allMatches.filter((match) => match.kickoffUtc.slice(0, 10) === today); return <StaticPage eyebrow="Today (UTC)" title="World Cup matches today">{matches.length ? <ul>{matches.map((match) => <li key={match.id}>{match.homeTeam.name} vs {match.awayTeam.name} — {formatKickoff(match.kickoffUtc)}</li>)}</ul> : <p>No World Cup matches are scheduled today.</p>}</StaticPage>; }
