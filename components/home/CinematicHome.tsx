@@ -87,7 +87,6 @@ export function CinematicHome({ match, upcoming, initialCountdown, source, updat
     </section>
 
     <div className="orbital-system" aria-hidden="true">
-      <div className="orbit orbit-one" /><div className="orbit orbit-two" /><div className="orbit orbit-three" />
       <div className="ball-stage"><div className="ball-aura" /><SoccerBallSvg /></div>
       <span className="orbit-label orbit-label-a">HOME / {match.homeTeam.code}</span>
       <span className="orbit-label orbit-label-b">AWAY / {match.awayTeam.code}</span>
