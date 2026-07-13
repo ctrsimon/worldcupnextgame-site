@@ -16,6 +16,12 @@ export async function getWorldCupMatchFeed(): Promise<MatchFeed> {
     }
   }
 
+  // API-Football costs money for the current World Cup season. Only use it when
+  // explicitly selected; a leftover key must never override the free provider.
+  if (process.env.MATCH_PROVIDER !== "api-football") {
+    return { matches: [], source: "unavailable", updatedAt: new Date().toISOString() };
+  }
+
   const apiKey = process.env.API_FOOTBALL_KEY;
   if (!apiKey) return { matches: [], source: "unavailable", updatedAt: new Date().toISOString() };
 
