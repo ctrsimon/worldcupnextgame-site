@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { JsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 import "./static.css";
 import "./cinematic.css";
@@ -13,5 +14,6 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><head>{adsenseClientId ? <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`} crossOrigin="anonymous" /> : null}</head><body>{children}<Analytics /></body></html>;
+  const websiteSchema = { "@context": "https://schema.org", "@type": "WebSite", name: "World Cup Next Game", url: "https://worldcupnextgame.com", description: "World Cup match kickoff times, countdowns, venues and schedules." };
+  return <html lang="en"><head>{adsenseClientId ? <script async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClientId}`} crossOrigin="anonymous" /> : null}<JsonLd data={websiteSchema} /></head><body>{children}<Analytics /></body></html>;
 }

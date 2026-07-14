@@ -1,5 +1,6 @@
 import { getApiFootballFixtures } from "./api-football";
 import { getFootballDataWorldCupMatches } from "./football-data";
+import { mockMatches } from "./mock-data";
 import type { Match } from "./types";
 
 export type MatchFeed = { matches: Match[]; source: "football-data" | "api-football" | "unavailable"; updatedAt: string };
@@ -36,5 +37,5 @@ export async function getWorldCupMatchFeed(): Promise<MatchFeed> {
     console.error("Unable to load World Cup fixtures from API-Football", error);
   }
 
-  return { matches: [], source: "unavailable", updatedAt: new Date().toISOString() };
+  return { matches: mockMatches, source: "unavailable", updatedAt: new Date().toISOString() };
 }

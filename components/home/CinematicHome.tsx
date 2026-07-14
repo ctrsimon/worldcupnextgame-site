@@ -60,7 +60,8 @@ export function CinematicHome({ match, upcoming, initialCountdown, source, updat
   const journey = clamp(progress / 0.76);
   const sceneStyle = { "--p": progress, "--reveal": reveal, "--intro": intro } as React.CSSProperties;
 
-  return <main className="cinema" style={sceneStyle} data-complete={progress > .94}>
+  return <>
+  <main className="cinema" style={sceneStyle} data-complete={progress > .94}>
     <div className="cinema-noise" aria-hidden="true" />
     <div className="cinema-glow" aria-hidden="true" />
     <div className="cinema-grid" aria-hidden="true" />
@@ -126,7 +127,14 @@ export function CinematicHome({ match, upcoming, initialCountdown, source, updat
     </aside>
     {scheduleOpen && <button className="drawer-scrim" onClick={() => setScheduleOpen(false)} aria-label="Close upcoming fixtures" />}
     <nav className="cinema-explore" aria-label="Explore World Cup information"><Link href="/today">Today</Link><Link href="/tomorrow">Tomorrow</Link><Link href="/schedule">All fixtures</Link><Link href="/data-sources">Data source</Link></nav>
-  </main>;
+  </main>
+  <section className="home-seo-copy" aria-labelledby="home-seo-title">
+    <p className="eyebrow">World Cup match guide</p>
+    <h2 id="home-seo-title">The next World Cup game</h2>
+    <p>The next World Cup game is {match.homeTeam.name} vs {match.awayTeam.name} in the semifinal on Tuesday, July 14, 2026. See the kickoff time in your timezone, venue information, countdown, and the remaining World Cup schedule.</p>
+    <p>Use the <Link href="/world-cup-next-game">next World Cup game guide</Link> for the full match context, or browse the <Link href="/world-cup-schedule">World Cup schedule</Link> for every fixture. The <Link href={`/matches/${match.slug}`}>permanent {match.homeTeam.name} vs {match.awayTeam.name} match page</Link> keeps its URL after the game finishes.</p>
+  </section>
+  </>;
 }
 
 function clamp(value: number) { return Math.min(1, Math.max(0, value)); }

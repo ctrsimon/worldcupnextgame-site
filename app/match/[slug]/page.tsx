@@ -7,6 +7,12 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { getWorldCupMatchFeed } from "@/lib/matches/getWorldCupMatches";
 
 export const revalidate = 3600;
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const { matches } = await getWorldCupMatchFeed();
+  const match = matches.find((item) => item.slug === slug);
+  return match ? { title: `${match.homeTeam.name} vs ${match.awayTeam.name}: ${match.tournamentName} ${match.stage} Time, Date and Countdown`, description: `${match.homeTeam.name} vs ${match.awayTeam.name} ${match.stage} kickoff time, venue, local timezone conversion and countdown.` } : { title: "World Cup match centre" };
+}
 export default async function MatchPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const { matches } = await getWorldCupMatchFeed();
